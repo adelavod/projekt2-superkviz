@@ -17,6 +17,7 @@ const kvizoveOtazky = [
             c: "Na ostrovy Skellige",
             d: "Do Beauclair v Toussaintu"
         },
+        obrazek: "obrazky/wolf.webp"
     },
     {   cislo: 3,
         otazka: "Kdo je pravá láska zaklínače Geralta?",
@@ -26,6 +27,7 @@ const kvizoveOtazky = [
             c: "Yennefer z Vengerbergu",
             d: "Keira Metz"
         },
+        obrazek: "obrazky/Shani.png"
     },
     {   cislo: 4,
         otazka: "Co je nejlepší hra všech dob podle Adély K.?",
@@ -35,45 +37,65 @@ const kvizoveOtazky = [
             c: "Botanicula",
             d: "Zaklínač 3: Divoký hon"
         },
+        obrazek: "obrazky/pacman.jpg"
     },
 ];
 let polozenyDotaz = document.getElementById("otazka");
 let obrazek = document.getElementById("obrazek");
-
+let zvoleneOdpovedi = [];
 
 /* console.log(Object.keys(kvizoveOtazky[0].odpovedi).length) ; */
 
-window.addEventListener("load", ()=> { 
+window.addEventListener("load", ()=> {
+
+    // TOHLE NAČTE 1. OTÁZKU Z POLE OTÁZEK, VŠECHNY MOŽNOSTI ODPOVĚDÍ A OBRÁZEK, a otázka 1/N count nahoře
+    
     polozenyDotaz.innerHTML =kvizoveOtazky[0].otazka;
+    // vypíše pořadí - číslo otázky a celkové množství otázek
     document.getElementById("poradi").innerHTML="Otázka "+kvizoveOtazky[0].cislo+" / "+kvizoveOtazky.length;
+    // načte obrázek unikátní pro 1. otázku
     obrazek.setAttribute('src', kvizoveOtazky[0].obrazek);
     
-    let otazka = kvizoveOtazky[0];
+    let otazka = kvizoveOtazky[0]; //1. otázka ze seznamu
+   
+    
     /* console.log(otazka);
     console.log(Object.keys(otazka.odpovedi).length) */
 
-    /* for (let i=0; i< Object.keys(otazka.odpovedi).length; i++) {
-        let ul = document.querySelector('ul');
-        let moznost = document.createElement('li'); 
-
-        
-        ul.appendChild(moznost);
-        moznost.textContent=otazka.odpovedi[i];
-        console.log(otazka.odpovedi);
-    }; */
-    
     let odpovedi = otazka.odpovedi;
+
     for (let i in odpovedi) {
         let ul = document.querySelector('ul');
         let moznost = document.createElement('li'); 
-
-        console.log(i, odpovedi[i]);
+        moznost.classList.add("button");
         moznost.textContent = i+") "+odpovedi[i];
-        ul.appendChild(moznost);
-        
+        moznost.dataset.zvolenaOdpoved=i; //tohle přidává unikátní data-attribute a-d každé odpovědi
 
+        // tohle přidá eventListener na každý <li>
+        moznost.addEventListener('click', (e)=> {
+
+            // Přidá do pole zvolených odpovědí nově zvolenou odpověď
+            zvoleneOdpovedi.push(e.target.dataset.zvolenaOdpoved)
+            console.log(zvoleneOdpovedi);
+
+            polozenyDotaz.inner
+
+        });
         
+        ul.appendChild(moznost); //vypíše všechny <li>
+       
     }
+
+
+
+/* buttons.forEach((tlacitko)=>{
+    tlacitko.addEventListener('click',(e)=> {
+        console.log(e.target.innerHTML)
+    });
+}) */
+
 });
+    
+
 
 
