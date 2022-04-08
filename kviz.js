@@ -45,8 +45,9 @@ let obrazek = document.getElementById("obrazek");
 let zvoleneOdpovedi = [];
 
 /* console.log(Object.keys(kvizoveOtazky[0].odpovedi).length) ; */
-console.log(otazka);
+
 window.addEventListener("load", ()=> {
+    
     polozOtazku(0);
   
 });
@@ -62,8 +63,6 @@ function polozOtazku (cisloOtazky) {
     let otazka = kvizoveOtazky[cisloOtazky];
     let odpovedi = otazka.odpovedi;
 
-    let minulaOtazka = kvizoveOtazky[cisloOtazky-1];
-    console.log(minulaOtazka);
 
 for (let i in odpovedi) {
         let ul = document.querySelector('ul');
@@ -79,15 +78,33 @@ for (let i in odpovedi) {
         zvoleneOdpovedi.push(e.target.dataset.zvolenaOdpoved);
 
         console.log(zvoleneOdpovedi);
-
-
-        polozOtazku(cisloOtazky+1);
-
+        console.log(kvizoveOtazky);
+        if (cisloOtazky < kvizoveOtazky.length-1) {
+            polozOtazku(cisloOtazky+1);
+        } else {
+            console.log(zvoleneOdpovedi);
+            /* ukazatOdpovedi(); */
+        }
+        
+        let li = document.querySelectorAll('li'); //tohle označí všechny <li> na stránce
+        let ul = document.querySelector('ul');
+        ul.removeChild(li[0]); 
+        ul.removeChild(li[1]); 
+        ul.removeChild(li[2]); 
+        ul.removeChild(li[3]); 
         });
+        
         ul.appendChild(moznost); //vypíše všechny <li>
+        
         otazka = kvizoveOtazky[+1];
+
+
+
+        
         
     }
+
+    
     
     };
 
