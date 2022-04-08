@@ -55,6 +55,7 @@ h1 {
 
 #otazka {
 	margin: 20px 0 30px 0;
+	font-family: 'Bangers', cursive;
 	font-size: 36px;
 	line-height: 1.2;
 	text-align: center;
@@ -66,28 +67,47 @@ h1 {
 	align-items: center;
 }
 
+
+#moznosti {
+	/* flex: 1; */
+	display: inline-flex;
+	
+	/* align-items: stretch; */
+}
+.container1 {
+	flex: none;
+	/* margin: 30px; */
+	/* width: 40%; */
+}
+.container2 {
+/* 	flex:2;
+	margin: 10px;
+	width: 100%; */
+}
 .foto {
-	width: 250px;
+	/* width: 200px;
+	height: auto; */
 	margin-right: 30px;
+	flex: none;
 }
 
 #obrazek {
 	padding: 5px;
-	width: 100%;
-	height: auto;
+	width: 250px;
+	height:250px;
+	/* height: auto; */
 	border-radius: 50%;
 	border: 3px dotted var(--cervena);
+	object-fit:cover;
 }
 
-#moznosti {
-	flex: 1;
-}
 
 #odpovedi {
 	margin: 0;
 	padding: 0;
 	font-size: 24px;
 	list-style: none;
+	flex:3;
 }
 
 #odpovedi li {
