@@ -45,26 +45,27 @@ let obrazek = document.getElementById("obrazek");
 let zvoleneOdpovedi = [];
 
 /* console.log(Object.keys(kvizoveOtazky[0].odpovedi).length) ; */
-
+console.log(otazka);
 window.addEventListener("load", ()=> {
-
+    polozOtazku(0);
+  
+});
+    
+function polozOtazku (cisloOtazky) {
     // TOHLE NAČTE 1. OTÁZKU Z POLE OTÁZEK, VŠECHNY MOŽNOSTI ODPOVĚDÍ A OBRÁZEK, a otázka 1/N count nahoře
-    
-    polozenyDotaz.innerHTML =kvizoveOtazky[0].otazka;
+    polozenyDotaz.innerHTML =kvizoveOtazky[cisloOtazky].otazka;
     // vypíše pořadí - číslo otázky a celkové množství otázek
-    document.getElementById("poradi").innerHTML="Otázka "+kvizoveOtazky[0].cislo+" / "+kvizoveOtazky.length;
+    document.getElementById("poradi").innerHTML="Otázka "+kvizoveOtazky[cisloOtazky].cislo+" / "+kvizoveOtazky.length;
     // načte obrázek unikátní pro 1. otázku
-    obrazek.setAttribute('src', kvizoveOtazky[0].obrazek);
-    
-    let otazka = kvizoveOtazky[0]; //1. otázka ze seznamu
-   
-    
-    /* console.log(otazka);
-    console.log(Object.keys(otazka.odpovedi).length) */
+    obrazek.setAttribute('src', kvizoveOtazky[cisloOtazky].obrazek);
 
+    let otazka = kvizoveOtazky[cisloOtazky];
     let odpovedi = otazka.odpovedi;
 
-    for (let i in odpovedi) {
+    let minulaOtazka = kvizoveOtazky[cisloOtazky-1];
+    console.log(minulaOtazka);
+
+for (let i in odpovedi) {
         let ul = document.querySelector('ul');
         let moznost = document.createElement('li'); 
         moznost.classList.add("button");
@@ -74,28 +75,19 @@ window.addEventListener("load", ()=> {
         // tohle přidá eventListener na každý <li>
         moznost.addEventListener('click', (e)=> {
 
-            // Přidá do pole zvolených odpovědí nově zvolenou odpověď
-            zvoleneOdpovedi.push(e.target.dataset.zvolenaOdpoved)
-            console.log(zvoleneOdpovedi);
+        // Přidá do pole zvolených odpovědí nově zvolenou odpověď
+        zvoleneOdpovedi.push(e.target.dataset.zvolenaOdpoved);
 
-            polozenyDotaz.inner
+        console.log(zvoleneOdpovedi);
+
+
+        polozOtazku(cisloOtazky+1);
 
         });
-        
         ul.appendChild(moznost); //vypíše všechny <li>
-       
+        otazka = kvizoveOtazky[+1];
+        
     }
-
-
-
-/* buttons.forEach((tlacitko)=>{
-    tlacitko.addEventListener('click',(e)=> {
-        console.log(e.target.innerHTML)
-    });
-}) */
-
-});
     
-
-
+    };
 
