@@ -69,7 +69,7 @@ const kvizoveOtazky = [
 // vytvoří pole správných odpovědí čtením z pole objektů kvizoveOtazky
 let spravneOdpovedi = [];
 for (let ra in kvizoveOtazky) {
-    console.log(kvizoveOtazky[ra].spravne);
+
     spravneOdpovedi.push(kvizoveOtazky[ra].spravne);
 };
 // vytvoří pole, do kterého se budou ukládat zvolené odpovědi
