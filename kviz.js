@@ -1,5 +1,5 @@
 const kvizoveOtazky = [
-    {   cislo: "1", // TODO: najdi lepší způsob jak to očíslovat než takhle natvrdo
+    {   
         otazka: "Kdo je vládcem vévodství Toussaint?",
         odpovedi: {
             a: "Yennefer z Vengerbergu",
@@ -7,9 +7,10 @@ const kvizoveOtazky = [
             c: "Emhyr var Emreis, bílý plamen",
             d: "Olgierd von Everec",
         },
+        spravne: "b",
         obrazek: "obrazky/Toussaint.png"
     },
-    {   cislo: 2,
+    {   
         otazka: "Kam se uchylují zaklínači ze školy vlka na zimní období?",
         odpovedi: {
             a: "Na Kaer Morhen",
@@ -17,9 +18,10 @@ const kvizoveOtazky = [
             c: "Na ostrovy Skellige",
             d: "Do Beauclair v Toussaintu",
         },
+        spravne: "a",
         obrazek: "obrazky/wolf.webp"
     },
-    {   cislo: 3,
+    {   
         otazka: "Kdo je jediná pravá láska Geralta z Rivie?",
         odpovedi: {
             a: "Triss Ranuncul",
@@ -27,19 +29,20 @@ const kvizoveOtazky = [
             c: "Yennefer z Vengerbergu",
             d: "Keira Metz"
         },
+        spravne: "c",
         obrazek: "obrazky/Shani.png"
     },
-    {   cislo: 4,
+    {   
         otazka: "Co z následujícího je oblíbenou vůní Geralta z Rivie?",
         odpovedi: {
             a: "Kuře na rožni",
             b: "Jasmín & patchouli",
             c: "Šeřík & angrešt"
         },
+        spravne: "c",
         obrazek: "obrazky/geralt.png"
     },
     {
-        cislo: 5,
         otazka: "Kdo z následujících rozhodně není dobrým přítelem Geralta z Rivie?",
         odpovedi: {
             a: "Emiel Regis Rohellec Terzieff-Godefroy",
@@ -48,10 +51,10 @@ const kvizoveOtazky = [
             d: "Marigold, potulný umělec",
             e: "Calanthé, královna Cintry"
         },
+        spravne: "c",
         obrazek: "obrazky/regis.webp"
     },
     {
-        cislo: 6,
         otazka: "Co je nejlepší hra všech dob podle Adély K.?",
         odpovedi: {
             a: "Fortnite",
@@ -59,44 +62,45 @@ const kvizoveOtazky = [
             c: "Botanicula",
             d: "Zaklínač 3: Divoký hon"
         },
+        spravne: "d",
         obrazek: "obrazky/pacman.jpg"
     }
 ];
-let spravneOdpovedi = ["b", "a", "c", "c", "c", "d"];
-
-let polozenyDotaz = document.getElementById("otazka");
-let obrazek = document.getElementById("obrazek");
+// vytvoří pole správných odpovědí čtením z pole objektů kvizoveOtazky
+let spravneOdpovedi = [];
+for (let ra in kvizoveOtazky) {
+    console.log(kvizoveOtazky[ra].spravne);
+    spravneOdpovedi.push(kvizoveOtazky[ra].spravne);
+};
+// vytvoří pole, do kterého se budou ukládat zvolené odpovědi
 let zvoleneOdpovedi = []; 
-
-/* console.log(kvizoveOtazky[1].odpovedi.a); */
-
 
 window.addEventListener("load", ()=> {
     polozOtazku(0); //načte první otázku
 });
 
-/*     for (i in kvizoveOtazky) {}
-    console.log(kvizoveOtazky[]) */
-
-
 function polozOtazku (cisloOtazky) {
+    let polozenyDotaz = document.getElementById("otazka");
+    let obrazek = document.getElementById("obrazek");
+
     // TOHLE NAČTE 1. OTÁZKU Z POLE OTÁZEK, VŠECHNY MOŽNOSTI ODPOVĚDÍ A OBRÁZEK, a otázka 1/N count nahoře
     polozenyDotaz.innerHTML =kvizoveOtazky[cisloOtazky].otazka;
     // vypíše pořadí - číslo otázky a celkové množství otázek
     document.getElementById("poradi").innerHTML="Otázka "+(cisloOtazky+1)+" / "+kvizoveOtazky.length;
-    console.log(cisloOtazky);
-    // načte obrázek unikátní pro 1. otázku
+
+    // načte obrázek unikátní pro každou otázku
     obrazek.setAttribute('src', kvizoveOtazky[cisloOtazky].obrazek);
 
     let otazka = kvizoveOtazky[cisloOtazky];
     let odpovedi = otazka.odpovedi;
 
-for (let i in odpovedi) {
+for (let i in odpovedi) { // přidává možnosti k vygenerovaným otázkám
+
         let ul = document.querySelector('ul');
         let moznost = document.createElement('li'); 
         moznost.classList.add("button");
         moznost.textContent = i+") "+odpovedi[i];
-        moznost.dataset.zvolenaOdpoved=i; //tohle přidává unikátní data-attribute a-d každé odpovědi
+        moznost.dataset.zvolenaOdpoved=i; //tohle přidává unikátní data-attribute a-x každé odpovědi
 
         // tohle přidá eventListener na každý <li>
         moznost.addEventListener('click', (e)=> {
@@ -122,7 +126,7 @@ for (let i in odpovedi) {
             let ul = document.querySelector('ul');
 
             for (let i=0; i<(Object.keys(kvizoveOtazky[cisloOtazky].odpovedi).length); i++) {
-                    ul.removeChild(li[i]);
+                    ul.removeChild(li[i]); // odstraní pouze tolik odpovědí, kolik jich otázka měla
             }
         };
 
@@ -132,6 +136,7 @@ for (let i in odpovedi) {
     }
     };
 
+    //  REKAPITULACE ODPOVĚDÍ A HODNOCENÍ
 function ukazatOdpovedi(){
 let body = document.getElementById("body");
 let vysledky = document.createElement("div");
@@ -155,11 +160,10 @@ body.appendChild(vysledky);
             let tvojeOdpoved = document.createElement("p");
             tvojeOdpoved.classList.add("novyradek");
             
-            
-        if (zvoleneOdpovedi[i]==spravneOdpovedi[i]) {
+        if (zvoleneOdpovedi[i]==spravneOdpovedi[i]) { //správná odpověď
             tvojeOdpoved.textContent = "Tvoje odpověď byla: "+kvizoveOtazky[i].odpovedi[(zvoleneOdpovedi[i])]+". \r\nTo byla správná odpověď.";
             spravneOdpovediCount = spravneOdpovediCount+1;
-        } else {
+        } else { //špatná odpověď
             tvojeOdpoved.textContent = "Tvoje odpověď byla: "+kvizoveOtazky[i].odpovedi[(zvoleneOdpovedi[i])]+". \r\nTo nebyla správná odpověď. \r\n"+
             "Správná odpověď byla: "+kvizoveOtazky[i].odpovedi[(spravneOdpovedi[i])]+".";
         }
