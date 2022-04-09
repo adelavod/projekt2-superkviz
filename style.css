@@ -72,20 +72,13 @@ h1 {
 
 
 #moznosti {
-	/* flex: 1; */
 	display: inline-flex;
-	
-	/* align-items: stretch; */
 }
 .container1 {
 	flex: none;
-	/* margin: 30px; */
-	/* width: 40%; */
 }
 
 .foto {
-	/* width: 200px;
-	height: auto; */
 	margin-right: 30px;
 	flex: none;
 }
@@ -124,11 +117,6 @@ h1 {
 	cursor: pointer;
 	transform: translateX(-10px);
 }
-
-
-/* .vysledek {
-	display: none;
-} */
 
 .vysledek h2 {
 	margin-top: 0;
