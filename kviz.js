@@ -5,7 +5,7 @@ const kvizoveOtazky = [
             a: "Yennefer z Vengerbergu",
             b: "Anna Henrietta",
             c: "Emhyr var Emreis, bílý plamen",
-            d: "Olgierd von Everec"
+            d: "Olgierd von Everec",
         },
         obrazek: "obrazky/Toussaint.png"
     },
@@ -13,14 +13,14 @@ const kvizoveOtazky = [
         otazka: "Kam se uchylují zaklínači ze školy vlka na zimní období?",
         odpovedi: {
             a: "Na Kaer Morhen",
-            b: "Do Ostravy na Dubinu",
+            b: "Do Ostravy na sídliště Dubina",
             c: "Na ostrovy Skellige",
             d: "Do Beauclair v Toussaintu",
         },
         obrazek: "obrazky/wolf.webp"
     },
     {   cislo: 3,
-        otazka: "Kdo je jediná pravá láska zaklínače Geralta?",
+        otazka: "Kdo je jediná pravá láska Geralta z Rivie?",
         odpovedi: {
             a: "Triss Ranuncul",
             b: "Anna Henrietta",
@@ -30,6 +30,28 @@ const kvizoveOtazky = [
         obrazek: "obrazky/Shani.png"
     },
     {   cislo: 4,
+        otazka: "Co z následujícího je oblíbenou vůní Geralta z Rivie?",
+        odpovedi: {
+            a: "Kuře na rožni",
+            b: "Jasmín & patchouli",
+            c: "Šeřík & angrešt"
+        },
+        obrazek: "obrazky/geralt.png"
+    },
+    {
+        cislo: 5,
+        otazka: "Kdo z následujících rozhodně není dobrým přítelem Geralta z Rivie?",
+        odpovedi: {
+            a: "Emiel Regis Rohellec Terzieff-Godefroy",
+            b: "Zoltan Chivay, trpaslík",
+            c: "Eredin Bréacc Glas, král Divokého Honu",
+            d: "Marigold, potulný umělec",
+            e: "Calanthé, královna Cintry"
+        },
+        obrazek: "obrazky/regis.webp"
+    },
+    {
+        cislo: 6,
         otazka: "Co je nejlepší hra všech dob podle Adély K.?",
         odpovedi: {
             a: "Fortnite",
@@ -38,19 +60,19 @@ const kvizoveOtazky = [
             d: "Zaklínač 3: Divoký hon"
         },
         obrazek: "obrazky/pacman.jpg"
-    },
+    }
 ];
+let spravneOdpovedi = ["b", "a", "c", "c","c","d"];
+
 let polozenyDotaz = document.getElementById("otazka");
 let obrazek = document.getElementById("obrazek");
-let zvoleneOdpovedi = []; // SPRAVIT !!!!!!!! na prázdné pole!
-let spravneOdpovedi = ["b", "a", "c", "d"];
+let zvoleneOdpovedi = []; 
+
 /* console.log(kvizoveOtazky[1].odpovedi.a); */
 
-/* console.log(Object.keys(kvizoveOtazky[0].odpovedi).length) ; */
 
 window.addEventListener("load", ()=> {
     polozOtazku(0); //načte první otázku
-
 });
     
 function polozOtazku (cisloOtazky) {
@@ -90,21 +112,19 @@ for (let i in odpovedi) {
             ukazatOdpovedi();
         }
         
-        // Mažeme předchozí odpovědi
+        // ODSTRANÍ ODPOVĚDI Z PŘEDCHOZÍ OTÁZKY
         if ((cisloOtazky >=0)&&(cisloOtazky<kvizoveOtazky.length-1)) {
-
             let li = document.querySelectorAll('li'); //tohle označí všechny <li> na stránce
             let ul = document.querySelector('ul');
-            ul.removeChild(li[0]); 
-            ul.removeChild(li[1]); 
-            ul.removeChild(li[2]); 
-            ul.removeChild(li[3]); 
+
+            for (let i=0; i<(Object.keys(kvizoveOtazky[cisloOtazky].odpovedi).length); i++) {
+                    ul.removeChild(li[i]);
+            }
         };
+
         });
-        
         ul.appendChild(moznost); //vypíše všechny <li>
         otazka = kvizoveOtazky[+1];
-
     }
     };
 
@@ -142,9 +162,9 @@ body.appendChild(vysledky);
         vysledky.appendChild(tvojeOdpoved);
         
     };
-    console.log(spravneOdpovediCount);
-    let uspesnost = (100*spravneOdpovediCount)/kvizoveOtazky.length;
-    console.log(uspesnost);
+
+    // vypíše zaokrouhlenou úspěšnost (na celá čísla)
+    let uspesnost = Math.round((100*spravneOdpovediCount)/kvizoveOtazky.length);
 
     let h3uspesnost = document.createElement("h2");
     h3uspesnost.classList.add("novyradek");
