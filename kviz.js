@@ -62,7 +62,7 @@ const kvizoveOtazky = [
         obrazek: "obrazky/pacman.jpg"
     }
 ];
-let spravneOdpovedi = ["b", "a", "c", "c","c","d"];
+let spravneOdpovedi = ["b", "a", "c", "c", "c", "d"];
 
 let polozenyDotaz = document.getElementById("otazka");
 let obrazek = document.getElementById("obrazek");
@@ -74,12 +74,17 @@ let zvoleneOdpovedi = [];
 window.addEventListener("load", ()=> {
     polozOtazku(0); //načte první otázku
 });
-    
+
+/*     for (i in kvizoveOtazky) {}
+    console.log(kvizoveOtazky[]) */
+
+
 function polozOtazku (cisloOtazky) {
     // TOHLE NAČTE 1. OTÁZKU Z POLE OTÁZEK, VŠECHNY MOŽNOSTI ODPOVĚDÍ A OBRÁZEK, a otázka 1/N count nahoře
     polozenyDotaz.innerHTML =kvizoveOtazky[cisloOtazky].otazka;
     // vypíše pořadí - číslo otázky a celkové množství otázek
-    document.getElementById("poradi").innerHTML="Otázka "+kvizoveOtazky[cisloOtazky].cislo+" / "+kvizoveOtazky.length;
+    document.getElementById("poradi").innerHTML="Otázka "+(cisloOtazky+1)+" / "+kvizoveOtazky.length;
+    console.log(cisloOtazky);
     // načte obrázek unikátní pro 1. otázku
     obrazek.setAttribute('src', kvizoveOtazky[cisloOtazky].obrazek);
 
@@ -99,12 +104,11 @@ for (let i in odpovedi) {
         // Přidá do pole zvolených odpovědí nově zvolenou odpověď
         zvoleneOdpovedi.push(e.target.dataset.zvolenaOdpoved);
 
-        console.log(zvoleneOdpovedi);
-        console.log(kvizoveOtazky);
         if (cisloOtazky < kvizoveOtazky.length-1) {
+
             polozOtazku(cisloOtazky+1);
+
         } else {
-            console.log(zvoleneOdpovedi);
 
             let kviz = document.getElementById("kviz");
             let body = document.getElementById("body");
